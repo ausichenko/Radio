@@ -4,11 +4,11 @@ import com.ausichenko.radio.model.pojo.Radio;
 
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class RadioRepository {
 
@@ -18,6 +18,7 @@ public class RadioRepository {
     private RadioRepository() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(RadioService.HTTP_DIRBLE_URL)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -34,8 +35,8 @@ public class RadioRepository {
 
     public Observable<List<Radio>> getRadioList() {
         return mRadioService
-                .getPopularStations()
+                .getPopularStations("d061dbb423f9b30bbf691ef256")
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+                .observeOn(Schedulers.single());
     }
 }

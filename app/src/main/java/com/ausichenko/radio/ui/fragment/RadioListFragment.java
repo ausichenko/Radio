@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,26 +73,26 @@ public class RadioListFragment extends MvpAppCompatFragment implements RadioList
 
     @Override
     public void showProgress() {
-
+        Log.d(TAG, "showProgress: ");
     }
 
     @Override
     public void hideProgress() {
-
+        Log.d(TAG, "hideProgress: ");
     }
 
     @Override
     public void showData(List<Radio> data) {
-
+        Log.d(TAG, "showData: data = " + data.size() + " " + data.toString());
     }
 
     @Override
     public void showError(Throwable error) {
-
+        Log.d(TAG, "showError: error = " + error.getMessage());
     }
 
     @Override
     public void showEmptyList() {
-
+        Log.d(TAG, "showEmptyList: ");
     }
 }

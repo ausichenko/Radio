@@ -1,5 +1,6 @@
 package com.ausichenko.radio.presentation.presenter;
 
+import android.util.Log;
 
 import com.ausichenko.radio.model.pojo.Radio;
 import com.ausichenko.radio.model.repo.RadioRepository;
@@ -9,7 +10,8 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import java.util.List;
 
-import rx.Observer;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 @InjectViewState
 public class RadioListPresenter extends MvpPresenter<RadioListView> {
@@ -18,13 +20,18 @@ public class RadioListPresenter extends MvpPresenter<RadioListView> {
         getViewState().showProgress();
         RadioRepository.getInstance().getRadioList().subscribe(new Observer<List<Radio>>() {
             @Override
-            public void onCompleted() {
+            public void onError(Throwable e) {
+                getViewState().showError(e);
+            }
+
+            @Override
+            public void onComplete() {
                 getViewState().hideProgress();
             }
 
             @Override
-            public void onError(Throwable e) {
-                getViewState().showError(e);
+            public void onSubscribe(Disposable d) {
+                Log.d("TAG", "onSubscribe: ");
             }
 
             @Override
