@@ -28,6 +28,7 @@ public class RadioListFragment extends MvpAppCompatFragment implements RadioList
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private RadioAdapter mRadioAdapter;
+    private View mProgress;
 
     public static RadioListFragment newInstance() {
         RadioListFragment fragment = new RadioListFragment();
@@ -51,6 +52,7 @@ public class RadioListFragment extends MvpAppCompatFragment implements RadioList
             }
         });
 
+        mProgress = view.findViewById(R.id.progress);
         initRecyclerView(view);
 
         mRadioListPresenter.getRadioList();
@@ -61,7 +63,10 @@ public class RadioListFragment extends MvpAppCompatFragment implements RadioList
     private void initRecyclerView(View fragmentView) {
         mRecyclerView = fragmentView.findViewById(R.id.radio_list);
         mRadioAdapter = new RadioAdapter();
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mRadioAdapter);
     }
 
@@ -73,17 +78,33 @@ public class RadioListFragment extends MvpAppCompatFragment implements RadioList
 
     @Override
     public void showProgress() {
-        Log.d(TAG, "showProgress: ");
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mProgress.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
     public void hideProgress() {
-        Log.d(TAG, "hideProgress: ");
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mProgress.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
     public void showData(List<Radio> data) {
-        Log.d(TAG, "showData: data = " + data.size() + " " + data.toString());
+        mRadioAdapter.setRadioList(data);
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mRadioAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
