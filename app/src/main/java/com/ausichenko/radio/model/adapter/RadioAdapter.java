@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.ausichenko.radio.R;
 import com.ausichenko.radio.model.callback.OnClickRadioListener;
+import com.ausichenko.radio.model.pojo.Category;
 import com.ausichenko.radio.model.pojo.Radio;
 import com.squareup.picasso.Picasso;
 
@@ -54,18 +55,27 @@ public class RadioAdapter extends RecyclerView.Adapter<RadioAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ImageView preview;
-        public TextView textView;
+        public ImageView mPreview;
+        public TextView mTitle;
+        public TextView mCategory;
+        public TextView mBitrate;
 
         public ViewHolder(View view) {
             super(view);
-            preview = view.findViewById(R.id.preview);
-            textView = view.findViewById(R.id.name);
+            mPreview = view.findViewById(R.id.preview);
+            mTitle = view.findViewById(R.id.name);
+            mCategory = view.findViewById(R.id.category);
+            mBitrate = view.findViewById(R.id.bitrate);
         }
 
         public void bind(Context context, final Radio radio, final OnClickRadioListener listener) {
-            Picasso.with(context).load(radio.getImage().getUrl()).into(preview);
-            textView.setText(radio.getName());
+            Picasso.with(context).load(radio.getImage().getUrl()).into(mPreview);
+            mTitle.setText(radio.getName());
+            String cat = "";
+            for (Category category : radio.getCategories()) {
+                cat = cat.concat(category.getTitle() + " ");
+            }
+            mCategory.setText(cat);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     listener.onClick(radio);
