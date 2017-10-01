@@ -71,7 +71,7 @@ public class PlayerPresenter extends MvpPresenter<PlayerView> {
         }
     }
 
-    private void stop(Context context) {
+    public void stop(Context context) {
         PlayerIntentService.startActionStop(context);
         isPlaying = false;
         getViewState().stop();

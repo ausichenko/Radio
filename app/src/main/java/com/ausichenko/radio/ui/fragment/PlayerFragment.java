@@ -109,6 +109,12 @@ public class PlayerFragment extends MvpAppCompatFragment implements PlayerView {
     }
 
     @Override
+    public void onDestroyView() {
+        mPlayerPresenter.stop(getContext());
+        super.onDestroyView();
+    }
+
+    @Override
     public void play() {
         mPlayButton.setImageResource(R.drawable.ic_pause);
     }
