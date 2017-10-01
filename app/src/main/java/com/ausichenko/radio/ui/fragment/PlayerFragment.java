@@ -3,7 +3,6 @@ package com.ausichenko.radio.ui.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +58,6 @@ public class PlayerFragment extends MvpAppCompatFragment implements PlayerView {
         ImageView preview = fragmentView.findViewById(R.id.preview);
         Picasso.with(getContext())
                 .load(mRadio.getImage().getUrl())
-                //.placeholder(R.drawable.ic_placeholder)
                 .into(preview);
     }
 
