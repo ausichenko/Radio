@@ -65,6 +65,4 @@ public class PlayerPresenter extends MvpPresenter<PlayerView> {
         getViewState().stop();
     }
 
-
-
 }

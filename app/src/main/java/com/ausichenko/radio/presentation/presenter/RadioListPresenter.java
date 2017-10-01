@@ -21,6 +21,7 @@ public class RadioListPresenter extends MvpPresenter<RadioListView> {
         RadioRepository.getInstance().getRadioList().subscribe(new Observer<List<Radio>>() {
             @Override
             public void onError(Throwable e) {
+                getViewState().hideProgress();
                 getViewState().showError(e);
             }
 

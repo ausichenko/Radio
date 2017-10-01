@@ -5,13 +5,10 @@ import com.ausichenko.radio.model.pojo.Radio;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.plugins.RxJavaPlugins;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.android.plugins.RxAndroidPlugins;
-import rx.android.schedulers.AndroidSchedulers;
 
 public class RadioRepository {
 
