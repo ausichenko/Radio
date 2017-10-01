@@ -1,11 +1,14 @@
 package com.ausichenko.radio.model.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Radio {
+public class Radio implements Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -58,6 +61,34 @@ public class Radio {
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
+
+    protected Radio(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        country = in.readString();
+        image = in.readParcelable(Image.class.getClassLoader());
+        slug = in.readString();
+        website = in.readString();
+        twitter = in.readString();
+        facebook = in.readString();
+        totalListeners = in.readInt();
+        categories = in.createTypedArrayList(Category.CREATOR);
+        streams = in.createTypedArrayList(Stream.CREATOR);
+        createdAt = in.readString();
+        updatedAt = in.readString();
+    }
+
+    public static final Creator<Radio> CREATOR = new Creator<Radio>() {
+        @Override
+        public Radio createFromParcel(Parcel in) {
+            return new Radio(in);
+        }
+
+        @Override
+        public Radio[] newArray(int size) {
+            return new Radio[size];
+        }
+    };
 
     public Integer getId() {
         return id;
@@ -161,5 +192,27 @@ public class Radio {
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(name);
+        parcel.writeString(country);
+        parcel.writeParcelable(image, i);
+        parcel.writeString(slug);
+        parcel.writeString(website);
+        parcel.writeString(twitter);
+        parcel.writeString(facebook);
+        parcel.writeInt(totalListeners);
+        parcel.writeTypedList(categories);
+        parcel.writeTypedList(streams);
+        parcel.writeString(createdAt);
+        parcel.writeString(updatedAt);
     }
 }

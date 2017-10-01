@@ -18,6 +18,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".model.PlayerIntentService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.udacity.study.jam.radiotastic.player.action.PLAY" />
+                <action android:name="com.udacity.study.jam.radiotastic.player.action.STOP" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

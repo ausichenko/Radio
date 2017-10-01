@@ -1,9 +1,12 @@
 package com.ausichenko.radio.model.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Category {
+public class Category implements Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -24,6 +27,25 @@ public class Category {
     @SerializedName("ancestry")
     @Expose
     private Object ancestry;
+
+    protected Category(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        description = in.readString();
+        slug = in.readString();
+    }
+
+    public static final Creator<Category> CREATOR = new Creator<Category>() {
+        @Override
+        public Category createFromParcel(Parcel in) {
+            return new Category(in);
+        }
+
+        @Override
+        public Category[] newArray(int size) {
+            return new Category[size];
+        }
+    };
 
     public Integer getId() {
         return id;
@@ -63,5 +85,18 @@ public class Category {
 
     public void setAncestry(Object ancestry) {
         this.ancestry = ancestry;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(title);
+        parcel.writeString(description);
+        parcel.writeString(slug);
     }
 }

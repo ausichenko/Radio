@@ -18,6 +18,7 @@ import com.ausichenko.radio.presentation.view.RadioListView;
 import com.ausichenko.radio.presentation.presenter.RadioListPresenter;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.ausichenko.radio.ui.activity.MainActivity;
 
 import java.util.List;
 
@@ -82,7 +83,7 @@ public class RadioListFragment extends MvpAppCompatFragment implements RadioList
     }
 
     private void openRadio(Radio radio) {
-
+        ((MainActivity) getActivity()).showPlayerFragment(radio);
     }
 
     @Override
