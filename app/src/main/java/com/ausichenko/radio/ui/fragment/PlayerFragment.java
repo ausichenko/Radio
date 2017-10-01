@@ -1,5 +1,6 @@
 package com.ausichenko.radio.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +45,7 @@ public class PlayerFragment extends MvpAppCompatFragment implements PlayerView {
         View view = inflater.inflate(R.layout.fragment_player, container, false);
 
         initPreview(view);
+        initShareButton(view);
         initPlayButton(view);
         initControls(view);
 
@@ -56,6 +58,20 @@ public class PlayerFragment extends MvpAppCompatFragment implements PlayerView {
                 .load(mRadio.getImage().getUrl())
                 //.placeholder(R.drawable.ic_placeholder)
                 .into(preview);
+    }
+
+    private void initShareButton(View fragmentView) {
+        ImageView shareButton = fragmentView.findViewById(R.id.shareButton);
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "Dirble radio\n" + mRadio.getName() + "\n" + mRadio.getWebsite());
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+            }
+        });
     }
 
     private void initPlayButton(View fragmentView) {
