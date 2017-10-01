@@ -83,6 +83,7 @@ public class RadioListFragment extends MvpAppCompatFragment implements RadioList
     public void onViewCreated(final View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mRadioListPresenter.getRadioList();
+        mRadioListPresenter.initPaginate(mRadioList);
     }
 
     @Override
@@ -115,6 +116,17 @@ public class RadioListFragment extends MvpAppCompatFragment implements RadioList
             @Override
             public void run() {
                 mRadioList.setVisibility(View.VISIBLE);
+                mRadioAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    @Override
+    public void addData(List<Radio> data) {
+        mRadioAdapter.addRadioList(data);
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
                 mRadioAdapter.notifyDataSetChanged();
             }
         });

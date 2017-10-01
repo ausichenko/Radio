@@ -33,6 +33,10 @@ public class RadioAdapter extends RecyclerView.Adapter<RadioAdapter.ViewHolder> 
         mRadioList = radioList;
     }
 
+    public void addRadioList(List<Radio> radioList) {
+        mRadioList.addAll(radioList);
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, final int viewType) {
 

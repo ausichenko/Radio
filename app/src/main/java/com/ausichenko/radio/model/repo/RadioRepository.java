@@ -33,9 +33,9 @@ public class RadioRepository {
         return sRadioRepository;
     }
 
-    public Observable<List<Radio>> getRadioList() {
+    public Observable<List<Radio>> getRadioList(int page) {
         return mRadioService
-                .getPopularStations("d061dbb423f9b30bbf691ef256")
+                .getPopularStations(page, "d061dbb423f9b30bbf691ef256")
                 .subscribeOn(Schedulers.io())
                 // TODO: 30.09.17 to main thread
                 .observeOn(Schedulers.newThread());
