@@ -2,6 +2,7 @@ package com.ausichenko.radio.model.pojo;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -214,5 +215,27 @@ public class Radio implements Parcelable {
         parcel.writeTypedList(streams);
         parcel.writeString(createdAt);
         parcel.writeString(updatedAt);
+    }
+
+    @Override
+    public String toString() {
+        String message = "";
+        if (!TextUtils.isEmpty(country)) {
+            message = message.concat("Country: ").concat(country).concat("\n");
+        }
+        if (!TextUtils.isEmpty(website)) {
+            message = message.concat("Website: ").concat(website).concat("\n");
+        }
+        if (!TextUtils.isEmpty(twitter)) {
+            message = message.concat("Twitter: ").concat(twitter).concat("\n");
+        }
+        if (!TextUtils.isEmpty(facebook)) {
+            message = message.concat("Facebook: ").concat(facebook).concat("\n");
+        }
+        message = message.concat("Listeners: ").concat(String.valueOf(totalListeners)).concat("\n");
+        if (!TextUtils.isEmpty(createdAt)) {
+            message = message.concat("Created at: ").concat(createdAt).concat("\n");
+        }
+        return message;
     }
 }

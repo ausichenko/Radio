@@ -2,6 +2,8 @@ package com.ausichenko.radio.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +49,7 @@ public class PlayerFragment extends MvpAppCompatFragment implements PlayerView {
         initPreview(view);
         initShareButton(view);
         initPlayButton(view);
+        initInfoButton(view);
         initControls(view);
 
         return view;
@@ -80,6 +83,21 @@ public class PlayerFragment extends MvpAppCompatFragment implements PlayerView {
             @Override
             public void onClick(View view) {
                 mPlayerPresenter.playStop(getContext(), mRadio.getStreams());
+            }
+        });
+    }
+
+    private void initInfoButton(View fragmentView) {
+        ImageView infoButton = fragmentView.findViewById(R.id.infoButton);
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog dialog = new AlertDialog.Builder(getContext())
+                        .setTitle(mRadio.getName())
+                        .setMessage(mRadio.toString())
+                        .create();
+
+                dialog.show();
             }
         });
     }
