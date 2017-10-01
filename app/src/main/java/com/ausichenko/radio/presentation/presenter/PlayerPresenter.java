@@ -4,11 +4,15 @@ import android.content.Context;
 import android.database.ContentObserver;
 import android.media.AudioManager;
 import android.os.Handler;
+import android.text.TextUtils;
 
+import com.ausichenko.radio.model.pojo.Stream;
 import com.ausichenko.radio.model.service.PlayerIntentService;
 import com.ausichenko.radio.presentation.view.PlayerView;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+
+import java.util.List;
 
 @InjectViewState
 public class PlayerPresenter extends MvpPresenter<PlayerView> {
@@ -45,18 +49,26 @@ public class PlayerPresenter extends MvpPresenter<PlayerView> {
         mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
     }
 
-    public void playStop(Context context, String streamUrl) {
+    public void playStop(Context context, List<Stream> streamList) {
         if (!isPlaying) {
-            play(context, streamUrl);
+            play(context, streamList);
         } else {
             stop(context);
         }
     }
 
-    private void play(Context context, String streamUrl) {
-        PlayerIntentService.startActionPlay(context, streamUrl);
-        isPlaying = true;
-        getViewState().play();
+    private void play(Context context, List<Stream> streamList) {
+        String streamUrl = "";
+        for (Stream stream : streamList) {
+            if (stream.getStatus() == 1) {
+                streamUrl = stream.getStream();
+            }
+        }
+        if (!TextUtils.isEmpty(streamUrl)) {
+            PlayerIntentService.startActionPlay(context, streamUrl);
+            isPlaying = true;
+            getViewState().play();
+        }
     }
 
     private void stop(Context context) {

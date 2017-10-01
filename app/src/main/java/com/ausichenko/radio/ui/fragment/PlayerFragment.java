@@ -79,7 +79,7 @@ public class PlayerFragment extends MvpAppCompatFragment implements PlayerView {
         mPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPlayerPresenter.playStop(getContext(), mRadio.getStreams().get(0).getStream());
+                mPlayerPresenter.playStop(getContext(), mRadio.getStreams());
             }
         });
     }
@@ -88,7 +88,7 @@ public class PlayerFragment extends MvpAppCompatFragment implements PlayerView {
     public void onViewCreated(final View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mPlayerPresenter.initAudioManager(getContext());
-        mPlayerPresenter.playStop(getContext(), mRadio.getStreams().get(0).getStream());
+        mPlayerPresenter.playStop(getContext(), mRadio.getStreams());
     }
 
     private void initControls(View fragmentView) {

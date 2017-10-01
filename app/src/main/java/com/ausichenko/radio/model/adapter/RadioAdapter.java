@@ -58,14 +58,12 @@ public class RadioAdapter extends RecyclerView.Adapter<RadioAdapter.ViewHolder> 
         public ImageView mPreview;
         public TextView mTitle;
         public TextView mCategory;
-        public TextView mBitrate;
 
         public ViewHolder(View view) {
             super(view);
             mPreview = view.findViewById(R.id.preview);
             mTitle = view.findViewById(R.id.name);
             mCategory = view.findViewById(R.id.category);
-            mBitrate = view.findViewById(R.id.bitrate);
         }
 
         public void bind(Context context, final Radio radio, final OnClickRadioListener listener) {
