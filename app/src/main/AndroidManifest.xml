@@ -20,7 +20,7 @@
         </activity>
 
         <service
-            android:name=".model.PlayerIntentService"
+            android:name=".model.service.PlayerIntentService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.udacity.study.jam.radiotastic.player.action.PLAY" />

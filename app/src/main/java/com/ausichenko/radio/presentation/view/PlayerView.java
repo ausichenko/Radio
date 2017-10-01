@@ -6,4 +6,6 @@ public interface PlayerView extends MvpView {
 
     void play();
     void stop();
+    void setMaxVolume(int maxVolume);
+    void volumeChanged(int volume);
 }

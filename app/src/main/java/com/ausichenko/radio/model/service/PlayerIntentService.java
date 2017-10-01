@@ -1,4 +1,4 @@
-package com.ausichenko.radio.model;
+package com.ausichenko.radio.model.service;
 
 import android.app.Service;
 import android.content.Context;

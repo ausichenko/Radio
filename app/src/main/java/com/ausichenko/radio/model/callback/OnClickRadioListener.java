@@ -1,4 +1,4 @@
-package com.ausichenko.radio.model;
+package com.ausichenko.radio.model.callback;
 
 import com.ausichenko.radio.model.pojo.Radio;
 

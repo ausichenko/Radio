@@ -1,5 +1,6 @@
-package com.ausichenko.radio.model;
+package com.ausichenko.radio.model.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ausichenko.radio.R;
+import com.ausichenko.radio.model.callback.OnClickRadioListener;
 import com.ausichenko.radio.model.pojo.Radio;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +20,11 @@ public class RadioAdapter extends RecyclerView.Adapter<RadioAdapter.ViewHolder> 
 
     private List<Radio> mRadioList = new ArrayList<>();
 
+    private Context mContext;
     private OnClickRadioListener mOnClickListener;
 
-    public RadioAdapter(OnClickRadioListener onClickListener) {
+    public RadioAdapter(Context context, OnClickRadioListener onClickListener) {
+        mContext = context;
         mOnClickListener = onClickListener;
     }
 
@@ -39,7 +44,7 @@ public class RadioAdapter extends RecyclerView.Adapter<RadioAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Radio radio = mRadioList.get(position);
-        holder.bind(radio, mOnClickListener);
+        holder.bind(mContext, radio, mOnClickListener);
     }
 
     @Override
@@ -58,7 +63,8 @@ public class RadioAdapter extends RecyclerView.Adapter<RadioAdapter.ViewHolder> 
             textView = view.findViewById(R.id.name);
         }
 
-        public void bind(final Radio radio, final OnClickRadioListener listener) {
+        public void bind(Context context, final Radio radio, final OnClickRadioListener listener) {
+            Picasso.with(context).load(radio.getImage().getUrl()).into(preview);
             textView.setText(radio.getName());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
